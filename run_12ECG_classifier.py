@@ -19,7 +19,10 @@ def run_12ECG_classifier(data,header_data,classes,model):
     Xi = np.reshape(Xi,(1,POINTS,12))
     Z = model.predict(Xi)
     current_score = Z[0]
-    current_label = np.multiply(current_score>=thresh,1)
+    TArr = [0.3786562, 0.36432564, 0.11703539, 0.8391135, 0.17399547, 0.03880799, 0.3140175, 0.65065956, 0.032741368]
+    zipPT = zip(current_score,TArr)
+    w = [pv>tv for (pv,tv) in zipPT]
+    current_label = np.multiply(w,1)
     return current_label,current_score
 
 
